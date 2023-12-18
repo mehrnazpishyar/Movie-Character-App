@@ -176,6 +176,10 @@
 .character-detail__info .actions p {
   color: var(--slate-400);
 }
+.select-character {
+  flex: 1;
+  color: var(--slate-400);
+}
 
 /* character episodes */
 

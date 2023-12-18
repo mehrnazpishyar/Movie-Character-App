@@ -1,26 +1,8 @@
-import {
-
-  ArrowUpCircleIcon,
-} from "@heroicons/react/24/outline";
-
-const character = {
-  id: 1,
-  name: "Rick Sanchez",
-  status: "Dead",
-  species: "Human",
-  type: "",
-  gender: "Male",
-  origin: {
-    name: "Earth (C-137)",
-    url: "https://rickandmortyapi.com/api/location/1",
-  },
-  location: {
-    name: "Citadel of Ricks",
-    url: "https://rickandmortyapi.com/api/location/3",
-  },
-  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  created: "2017-11-04T18:48:46.250Z",
-};
+import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Loader from "./Loader";
 
 const episodes = [
   {
@@ -42,7 +24,38 @@ const episodes = [
   },
 ];
 
-const CharacterDetail = () => {
+const CharacterDetail = ({ selectedId }) => {
+  const [character, setCharacter] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const { data } = await axios.get(
+          `https://rickandmortyapi.com/api/character/${selectedId}`
+        );
+        setCharacter(data);
+      } catch (error) {
+        toast.error(error.response.data.error);
+      } finally {
+        setIsLoading(false);
+      }
+
+    }
+    if (selectedId) fetchData();
+  }, [selectedId]);
+
+  if (isLoading)
+    return (
+      <div className="select-character">
+        <Loader />
+      </div>
+    );
+
+  if (!character || !selectedId)
+    return <div className="select-character">Please select a character!</div>;
+
   return (
     <div style={{ flex: 1 }}>
       <div className="character-detail">
@@ -80,10 +93,11 @@ const CharacterDetail = () => {
           </button>
         </div>
         <ul>
-          {episodes.map((item, index)=>(
+          {episodes.map((item, index) => (
             <li key={item.id}>
               <div>
-               {String(index + 1 ).padStart(2,"0")} {item.episode} : <strong>{item.name}</strong>
+                {String(index + 1).padStart(2, "0")} {item.episode} :{" "}
+                <strong>{item.name}</strong>
               </div>
             </li>
           ))}

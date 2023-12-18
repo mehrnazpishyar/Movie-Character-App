@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { allCharacters } from "../data/data";
 import "./App.css";
 import CharacterDetail from "./components/CharacterDetail";
 import CharacterList from "./components/CharacterList";
@@ -8,9 +7,10 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function App() {
-  const [characters, setCharacters] = useState(allCharacters);
+  const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,13 +29,26 @@ function App() {
     fetchData();
   }, [query]);
 
+  const handleSelectCharacter = (id) => {
+    setSelectedId((prevId) => (prevId === id ? null : id));
+  };
+
   return (
     <div className="app">
       <Toaster />
-      <Navbar numOfResult={characters.length} query={query} setQuery={setQuery} />
+      <Navbar
+        numOfResult={characters.length}
+        query={query}
+        setQuery={setQuery}
+      />
       <Main>
-        <CharacterList characters={characters} isLoading={isLoading} />
-        <CharacterDetail />
+        <CharacterList
+          selectedId={selectedId}
+          characters={characters}
+          isLoading={isLoading}
+          onSelectCharacter={handleSelectCharacter}
+        />
+        <CharacterDetail selectedId={selectedId} />
       </Main>
     </div>
   );
