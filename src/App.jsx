@@ -11,7 +11,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [favourites, setFavourites] = useState([]);
+  const [favourites, setFavourites] = useState(() =>
+    JSON.parse(localStorage.getItem("FAVOURITES") || [])
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +32,10 @@ function App() {
     fetchData();
   }, [query]);
 
+  useEffect(() => {
+    localStorage.setItem("FAVOURITES", JSON.stringify(favourites));
+  }, [favourites]);
+
   const handleSelectCharacter = (id) => {
     setSelectedId((prevId) => (prevId === id ? null : id));
   };
@@ -38,16 +44,22 @@ function App() {
     setFavourites((prevFav) => [...prevFav, character]);
   };
 
+  const handleDeleteFavourites = (id) => {
+    setFavourites((prevFav) => prevFav.filter((fav) => fav.id !== id));
+  };
+
   const isAddToFavourite = favourites.map((fav) => fav.id).includes(selectedId);
 
   return (
     <div className="app">
       <Toaster />
+
       <Navbar
         numOfResult={characters.length}
         query={query}
         setQuery={setQuery}
-        numOfFavourites={favourites.length}
+        favourites={favourites}
+        onDeleteFavoutites={handleDeleteFavourites}
       />
       <Main>
         <CharacterList
