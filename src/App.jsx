@@ -11,6 +11,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,6 +34,12 @@ function App() {
     setSelectedId((prevId) => (prevId === id ? null : id));
   };
 
+  const handleAddFavourites = (character) => {
+    setFavourites((prevFav) => [...prevFav, character]);
+  };
+
+  const isAddToFavourite = favourites.map((fav) => fav.id).includes(selectedId);
+
   return (
     <div className="app">
       <Toaster />
@@ -40,6 +47,7 @@ function App() {
         numOfResult={characters.length}
         query={query}
         setQuery={setQuery}
+        numOfFavourites={favourites.length}
       />
       <Main>
         <CharacterList
@@ -48,7 +56,11 @@ function App() {
           isLoading={isLoading}
           onSelectCharacter={handleSelectCharacter}
         />
-        <CharacterDetail selectedId={selectedId} />
+        <CharacterDetail
+          selectedId={selectedId}
+          onAddFavourites={handleAddFavourites}
+          isAddToFavourite={isAddToFavourite}
+        />
       </Main>
     </div>
   );
