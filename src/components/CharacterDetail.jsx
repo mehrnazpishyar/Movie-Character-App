@@ -4,29 +4,11 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
 
-const episodes = [
-  {
-    id: 1,
-    name: "Pilot",
-    air_date: "December 2, 2013",
-    episode: "S01E01",
-    characters: [],
-    url: "https://rickandmortyapi.com/api/episode/1",
-    created: "2017-11-10T12:56:33.798Z",
-  },
-  {
-    id: 2,
-    name: "Lawnmower Dog",
-    air_date: "December 9, 2013",
-    episode: "S01E02",
-    url: "https://rickandmortyapi.com/api/episode/2",
-    created: "2017-11-10T12:56:33.916Z",
-  },
-];
 
 const CharacterDetail = ({ selectedId }) => {
   const [character, setCharacter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [episodes, setEpisodes] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -35,6 +17,13 @@ const CharacterDetail = ({ selectedId }) => {
         const { data } = await axios.get(
           `https://rickandmortyapi.com/api/character/${selectedId}`
         );
+        const episodeId = data.episode.map((e) => e.split("/").at(-1));
+        console.log(episodeId)
+        const { data: episodeData } = await axios.get(
+          `https://rickandmortyapi.com/api/episode/${episodeId}`
+        );
+        // console.log([episodeData])
+        setEpisodes([episodeData].flat().slice(0,5));
         setCharacter(data);
       } catch (error) {
         toast.error(error.response.data.error);
