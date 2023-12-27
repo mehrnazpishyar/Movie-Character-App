@@ -12,7 +12,7 @@ export default function useCharacter(url,query){
             const { data } = await axios.get(
               `${url}=${query}`
             );
-            setCharacters(data.results.slice(0, 5));
+            setCharacters(data.results);
           } catch (error) {
             toast.error(error.response.data.error);
           } finally {
