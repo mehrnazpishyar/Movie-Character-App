@@ -154,7 +154,6 @@
 .character-detail__info .info {
   font-size: 0.9rem;
   margin-bottom: 1rem;
-
 }
 
 .character-detail__info .location {
@@ -177,9 +176,10 @@
 .character-detail__info .actions p {
   color: var(--slate-400);
 }
-.select-character {
-  flex: 1;
-  color: var(--slate-400);
+
+.select-character{
+  font-size: 20px;
+  color: white;
 }
 
 /* character episodes */
@@ -219,49 +219,14 @@
   /* cursor: pointer; */
 }
 
-@media (max-width: 768px) {
-
-  .navbar {
-    display: flex;
-    flex-direction: column;
+@media (min-width: 768px) {
+  .character-detail {
+    flex-direction: row;
   }
-  
-
-  .characters-list {
-    width: 100%;
+  .character-detail__img {
+    width: 40%;
   }
-
-  .main{
-   display: flex;
-   flex-direction: column;
+  .character-detail__info .actions {
+    flex-direction: row;
   }
-
-  .list__item {
-    width: 100%;
-    display: flex;
-    flex-direction: column; /* Change to column layout */
-
-  }
-
-  
-  .list__item img {
-    width: 100%; /* Make the image take 100% width of the container */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 1rem;
-    margin-bottom: 0.5rem; /* Add margin between image and text */
-  }
-  
-  .list__item h3 {
-    margin-bottom: 0.5rem; /* Add margin below heading */
-  }
-  
-  
-  .list__item .icon {
-    align-self: flex-end; /* Align icon to the end of the flex container */
-  }
-
-  .list__item .list-item__info {
-    align-self: self-start;
-  }
-  
 }

@@ -11,7 +11,7 @@ export default function useCharacter(url, query) {
       try {
         setIsLoading(true);
         const { data } = await axios.get(`${url}=${query}`);
-        setCharacters(data.results.slice(0,6));
+        setCharacters(data.results);
         shuffleArray(data.results); 
       } catch (error) {
         toast.error(error.response.data.error);

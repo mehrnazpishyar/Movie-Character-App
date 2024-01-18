@@ -78,7 +78,7 @@ button {
   width: 98%;
   min-height: 250px;
   position: absolute;
-  top: 12%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--slate-900);
@@ -109,12 +109,9 @@ button {
   color: var(--slate-200);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .modal {
     max-width: 30rem;
-    position: absolute;
-    top: 8%;
-    left: 50%;
   }
 }
 
