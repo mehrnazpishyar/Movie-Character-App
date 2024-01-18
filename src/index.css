@@ -109,9 +109,12 @@ button {
   color: var(--slate-200);
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .modal {
     max-width: 30rem;
+    position: absolute;
+    top: 8%;
+    left: 50%;
   }
 }
 
