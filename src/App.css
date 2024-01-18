@@ -63,6 +63,7 @@
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
+
 .list__item:not(:last-child) {
   margin-bottom: 1.5rem;
 }
@@ -78,6 +79,7 @@
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
+
 .list__item:hover {
   background-color: var(--slate-700);
 }
@@ -182,10 +184,10 @@
   color: white;
 }
 
+
 /* character episodes */
 
 .character-episodes {
-  /* border: 1px solid var(--slate-300); */
   background-color: var(--slate-800);
   border-radius: 1rem;
   padding: 1rem;
@@ -219,7 +221,11 @@
   /* cursor: pointer; */
 }
 
-@media (min-width: 768px) {
+
+/* Responsive */
+
+
+@media screen and (min-width: 768px) {
   .character-detail {
     flex-direction: row;
   }
@@ -229,4 +235,21 @@
   .character-detail__info .actions {
     flex-direction: row;
   }
+}
+
+
+@media screen and (max-width : 768px){
+  .main{
+    display: flex;
+    flex-direction: column;
+  }
+  .characters-list {
+    width: 100%;
+  }
+ 
+  .navbar{
+    display: flex;
+    flex-direction: column;
+  }
+
 }

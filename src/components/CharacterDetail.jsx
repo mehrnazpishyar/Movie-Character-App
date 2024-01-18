@@ -22,7 +22,7 @@ const CharacterDetail = ({ selectedId, onAddFavourites, isAddToFavourite }) => {
           `https://rickandmortyapi.com/api/episode/${episodeId}`
         );
         // console.log([episodeData])
-        setEpisodes([episodeData].flat());
+        setEpisodes([episodeData].flat().slice(0,5));
         setCharacter(data);
       } catch (error) {
         toast.error(error.response.data.error);
